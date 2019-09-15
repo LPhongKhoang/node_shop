@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 // create app server
 const app = express();
-const morgan = require("morgan");
+// const morgan = require("morgan");
 
 // connect to mongodb
 if(!config.has("db.user") || !config.has("db.password")) {
@@ -26,7 +26,8 @@ dbConStr = dbConStr.replace("<username>", db_username)
 mongoose.connect(dbConStr, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useCreateIndex: true
 })
   .then(()=>console.log("Connect to mongodb successfully..."))
   .catch((ex)=>console.error("Connect to mongodb failure...", ex));
@@ -35,9 +36,10 @@ mongoose.connect(dbConStr, {
 // Define routes
 const productRoutes = require('./routes/products');
 const orderRoutes = require("./routes/orders");
+const userRoutes = require("./routes/users");
 
 // II. ========== Use middleware for pre-processing data, works =============
-app.use(morgan("dev"));  
+// app.use(morgan("dev"));  
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -62,7 +64,7 @@ app.use((req, res, next) => {
 //III. Specific Route Handler
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
-
+app.use("/api/users", userRoutes);
 
 // IV. Catch Error in express
 //1. catch unhandle route
