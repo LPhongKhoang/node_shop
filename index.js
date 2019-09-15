@@ -41,6 +41,7 @@ mongoose.connect(dbConStr, {
 const productRoutes = require('./routes/products');
 const orderRoutes = require("./routes/orders");
 const userRoutes = require("./routes/users");
+const testCorsRoutes = require("./routes/testCors");
 
 // II. ========== Use middleware for pre-processing data, works =============
 // app.use(morgan("dev"));  
@@ -69,6 +70,7 @@ app.use((req, res, next) => {
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/testCors", testCorsRoutes);
 
 // IV. Catch Error in express
 //1. catch unhandle route
