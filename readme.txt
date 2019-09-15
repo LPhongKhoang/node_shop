@@ -1,4 +1,12 @@
 ======= Project on Academind youtube ==
+0. User pattern:
+  "email": "pkpro2@gmail.com",
+	"password": "pkpw2pro"
+0. Token:
+token: amdin:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDdkZGQxM2VlODk5NzI0NThhZGQ4ZGUiLCJlbWFpbCI6InBrcHJvQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2ODUyOTcwOSwiZXhwIjoxNTY4NTMzMzA5fQ.F4UZnZVNemuDP-Q5l8CEQ_Ao9S60C0sapqdWcKwH_14
+token: for u2
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDdkYTI2OTg1ZDBmZjBlOTg3ZGExNzMiLCJlbWFpbCI6InBrcHJvMkBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY4NTI5NDQ4LCJleHAiOjE1Njg1MzMwNDh9.vpdSQ4jjlb9msWGlxIuF5xhc6MJpysirC7QQ3EAkLEo
 I. Parsing the body & Handling Cors
   1. "body-parser" can be use alternatively for "express"
   2. "Cors" (Cross Origin Resources Sharing)

@@ -6,6 +6,11 @@ const express = require("express");
 // create app server
 const app = express();
 // const morgan = require("morgan");
+// check environment variable jwtSecretKey is set
+if(!config.has("jwtSecretKey")) {
+  console.error("FATAl ERROR: need to set node_shop_jwtSecretKey env variables");
+  process.exit(1);
+}
 
 // connect to mongodb
 if(!config.has("db.user") || !config.has("db.password")) {
@@ -14,7 +19,6 @@ if(!config.has("db.user") || !config.has("db.password")) {
 }
 let dbConStr = config.get("db.constr");
 const db_name = config.get("db.name");
-console.log("db_name", db_name);
 const db_username = config.get("db.user");
 const db_password = config.get("db.password");
 

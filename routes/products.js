@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require("../middlewares/auth");
+const admin = require("../middlewares/admin");
 const { Product, validate } = require('../models/product');
 const validateObjectId = require("../middlewares/validateObjectId");
 const validateReqBody = require("../utils/validateReqBody");
@@ -31,7 +33,7 @@ router.get("/", async (req, res) => {
   res.send(products);
 });
 
-router.post("/", upload.single('productImg'), async (req, res) => {
+router.post("/", [auth, admin, upload.single('productImg')], async (req, res) => {
   validateReqBody(validate, req.body);
 
   const product = new Product({
@@ -57,9 +59,14 @@ router.get("/:id", validateObjectId, async (req, res) => {
 
 });
 
-router.patch("/:id", validateObjectId, async (req, res) => {
+router.patch("/:id", [auth, admin, validateObjectId, upload.single("productImg")], async (req, res) => {
+  const updateData = {};
+  if(req.body.name) updateData["name"] = req.body.name;
+  if(req.body.price) updateData["price"] = req.body.price;
+  if(req.file) updateData["productImg"] = req.file.path;
+
   const product = await Product.findByIdAndUpdate({_id: req.params.id}, {
-    $set: req.body
+    $set: updateData
   }, (err, res) => {res ? console.log('update product ok') : console.log('update product fail')});
   if(!product) {
     res.status(404).send("no product with the given id");
@@ -69,7 +76,7 @@ router.patch("/:id", validateObjectId, async (req, res) => {
   
 });
 
-router.delete("/:id", validateObjectId, async (req, res) => {
+router.delete("/:id", [auth, admin, validateObjectId], async (req, res) => {
   const product = await Product.remove({_id: req.params.id});
   res.send(product);
 });

@@ -1,4 +1,5 @@
 {
+  "jwtSecretKey": "node_shop_jwtSecretKey",
   "db": {
     "user": "db_user",
     "password": "db_password"

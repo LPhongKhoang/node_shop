@@ -1,16 +1,19 @@
 const express = require('express');
 const router = express.Router();
+
+const auth = require("../middlewares/auth");
+const admin = require("../middlewares/admin");
 const { Product } = require("../models/product");
 const { Order, validate }  = require("../models/order");
 const validateReqBody = require("../utils/validateReqBody");
 const validateObjectId = require("../middlewares/validateObjectId");
 
-router.get("/", async (req, res) => {
+router.get("/", [auth, admin], async (req, res) => {
   const orders = await Order.find().populate('product', 'name');
   res.send(orders);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [auth, admin], async (req, res) => {
   validateReqBody(validate, req.body);
   // check if productId in req.body not in db
   const product = await Product.findById(req.body.productId);
@@ -27,7 +30,7 @@ router.post("/", async (req, res) => {
   res.send(order);
 });
 
-router.get("/:id", validateObjectId,async (req, res) => {
+router.get("/:id", [auth, admin, validateObjectId],async (req, res) => {
   // "populate": if product is gone (is deleted) ==> product just be null
   const order = await Order.findById(req.params.id).populate('product');
   if(!order){
@@ -37,7 +40,7 @@ router.get("/:id", validateObjectId,async (req, res) => {
   }
 });
 
-router.patch("/:id", validateObjectId, async (req, res) => {
+router.patch("/:id", [auth, admin, validateObjectId], async (req, res) => {
 
   const order = await Order.findByIdAndUpdate(req.params.id, {
     $set: req.body
@@ -50,7 +53,7 @@ router.patch("/:id", validateObjectId, async (req, res) => {
   }
 });
 
-router.delete("/:id", validateObjectId , async (req, res) => {
+router.delete("/:id", [auth, admin, validateObjectId], async (req, res) => {
   const order = await Order.findByIdAndRemove(req.params.id);
   if(!order) {
     res.status(404).send("Not found order with given id");
