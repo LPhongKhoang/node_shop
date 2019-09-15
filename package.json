@@ -1,0 +1,21 @@
+{
+  "name": "rest-shop",
+  "version": "1.0.0",
+  "description": "node project pk.2",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "phong khoang",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/joi": "^16.0.1",
+    "bcrypt": "^3.0.6",
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^5.7.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2"
+  }
+}

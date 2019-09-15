@@ -1,0 +1,8 @@
+{
+  "db": {
+    "name": "node_shop",
+    "constr": "mongodb+srv://<username>:<password>@cluster0-iapls.mongodb.net/<db_name>?retryWrites=true&w=majority",
+    "user": "longpk_vidly_u1",
+    "password": "pwvidly1"
+  }
+}
