@@ -3,5 +3,10 @@
   "db": {
     "user": "db_user",
     "password": "db_password"
+  },
+  "s3": {
+    "accessKeyId": "node_shop_s3_accessKeyId",
+    "secretAccessKey": "node_shop_s3_secretAccessKey",
+    "Bucket": "node_shop_s3_Bucket"
   }
 }

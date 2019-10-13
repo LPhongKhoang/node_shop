@@ -26,3 +26,17 @@ I. Parsing the body & Handling Cors
                     path: 'public\\images\\1570877509188macbookpro2016.jpg',
                     size: 8759
                   }
+    + Up file to AWS-S3: 
+      {
+        acl: 'public-read',
+        contentType: 'application/octet-stream',
+        contentDisposition: null,
+        storageClass: 'STANDARD',
+        serverSideEncryption: null,
+        metadata: null,
+        location:
+        'https://node-rest-shop-image.s3.ap-southeast-1.amazonaws.com/1570938415166_calendar.png',
+        etag: '"79732fc131f81f482dcf5890d852892d"',
+        versionId: undefined
+      }
+  

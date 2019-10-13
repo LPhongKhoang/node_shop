@@ -1,19 +1,29 @@
 const express = require('express');
-const router = express.Router();
+const aws = require("aws-sdk");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const config = require("config");
 
 const auth = require("../middlewares/auth");
 const admin = require("../middlewares/admin");
 const { Product, validate } = require('../models/product');
 const validateObjectId = require("../middlewares/validateObjectId");
 const validateReqBody = require("../utils/validateReqBody");
-const multer = require("multer");
+
+const router = express.Router();
+
+const s3 = new aws.S3({
+  accessKeyId: config.get("s3.accessKeyId"),
+  secretAccessKey: config.get("s3.secretAccessKey"),
+  Bucket: config.get("s3.Bucket")
+});
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'public/images');
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + file.originalname);
+  storage: multerS3({
+    s3,
+    bucket: config.get("s3.Bucket"),
+    acl: "public-read",
+    key: (req, file, cb) => {
+      cb(null, Date.now() + "_" + file.originalname);
     }
   }),
   limits: {
@@ -40,7 +50,7 @@ router.post("/", [auth, admin, upload.single('productImg')], async (req, res) =>
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
-    productImg: req.file.path
+    productImg: req.file.path || req.file.location
   });
 
   await product.save();
@@ -64,7 +74,7 @@ router.patch("/:id", [auth, admin, validateObjectId, upload.single("productImg")
   const updateData = {};
   if(req.body.name) updateData["name"] = req.body.name;
   if(req.body.price) updateData["price"] = req.body.price;
-  if(req.file) updateData["productImg"] = req.file.path;
+  if(req.file) updateData["productImg"] = req.file.path || req.file.location;
 
   const product = await Product.findByIdAndUpdate({_id: req.params.id}, {
     $set: updateData

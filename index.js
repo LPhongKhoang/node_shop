@@ -6,6 +6,19 @@ const express = require("express");
 // create app server
 const app = express();
 // const morgan = require("morgan");
+// check s3 key is set to ENV or not
+if( !config.has("s3.accessKeyId") ||
+    !config.has("s3.secretAccessKey") ||
+    !config.has("s3.Bucket")
+) {
+  console.error(`FATAl ERROR: need to set 
+  node_shop_s3_accessKeyId 
+  node_shop_s3_secretAccessKey 
+  node_shop_s3_Bucket 
+  env variables`);
+  process.exit(1);
+}
+
 // check environment variable jwtSecretKey is set
 if(!config.has("jwtSecretKey")) {
   console.error("FATAl ERROR: need to set node_shop_jwtSecretKey env variables");

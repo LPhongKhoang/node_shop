@@ -4,12 +4,14 @@
   "description": "node project pk.2",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest"
   },
   "author": "phong khoang",
   "license": "MIT",
   "dependencies": {
     "@hapi/joi": "^16.0.1",
+    "aws-sdk": "^2.548.0",
     "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "config": "^3.2.2",
@@ -19,6 +21,7 @@
     "lodash": "^4.17.15",
     "mongoose": "^5.7.0",
     "morgan": "^1.9.1",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0"
   }
 }
