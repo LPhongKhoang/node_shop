@@ -5,7 +5,7 @@ const admin = require("../middlewares/admin");
 const { Product, validate } = require('../models/product');
 const validateObjectId = require("../middlewares/validateObjectId");
 const validateReqBody = require("../utils/validateReqBody");
-const upload = require("../services/fileUpload");
+const { upload } = require("../services/fileUpload");
 
 const router = express.Router();
 const singleUpload = upload.single("productImg");
