@@ -17,7 +17,7 @@ const upload = multer({
     }
   }),
   limits: {
-    fileSize: 1024*1024*5, // 5mb
+    fileSize: 1024*10, // ~ 10e3 bytes ~ 10kb
   },
   fileFilter: (req, file, cb) => {
     if(["image/jpeg", "image/png"].includes(file.mimetype) ) {
@@ -33,9 +33,10 @@ router.get("/", async (req, res) => {
   res.send(products);
 });
 
+// Note: should add validateReqBody as middleware (before save image to our Storage) (Not done yet)
 router.post("/", [auth, admin, upload.single('productImg')], async (req, res) => {
   validateReqBody(validate, req.body);
-
+  console.log("File: ", req.file);
   const product = new Product({
     name: req.body.name,
     price: req.body.price,

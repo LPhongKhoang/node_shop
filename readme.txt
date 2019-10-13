@@ -14,3 +14,15 @@ I. Parsing the body & Handling Cors
   3. File upload: (i.e: product creation form ("name" string, "price" number, "product imag" file))
     + Use "multer" to parse form data to Js Object
     + See in code to know "how to using it" or see in the docs "https://www.npmjs.com/package/multer"
+
+    + I.E: up image file with name: 'mackbookpro2016.jpg'
+      -> req.file: 
+          File:   { fieldname: 'productImg',
+                    originalname: 'macbookpro2016.jpg',
+                    encoding: '7bit',
+                    mimetype: 'image/jpeg',
+                    destination: 'public/images',
+                    filename: '1570877509188macbookpro2016.jpg',
+                    path: 'public\\images\\1570877509188macbookpro2016.jpg',
+                    size: 8759
+                  }
