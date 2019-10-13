@@ -7,9 +7,9 @@ const express = require("express");
 const app = express();
 // const morgan = require("morgan");
 // check s3 key is set to ENV or not
-if( !config.has("s3.accessKeyId") ||
-    !config.has("s3.secretAccessKey") ||
-    !config.has("s3.Bucket")
+if( !config.get("s3.accessKeyId") ||
+    !config.get("s3.secretAccessKey") ||
+    !config.get("s3.Bucket")
 ) {
   console.error(`FATAl ERROR: need to set 
   node_shop_s3_accessKeyId 
@@ -20,13 +20,13 @@ if( !config.has("s3.accessKeyId") ||
 }
 
 // check environment variable jwtSecretKey is set
-if(!config.has("jwtSecretKey")) {
+if(!config.get("jwtSecretKey")) {
   console.error("FATAl ERROR: need to set node_shop_jwtSecretKey env variables");
   process.exit(1);
 }
 
 // connect to mongodb
-if(!config.has("db.user") || !config.has("db.password")) {
+if(!config.get("db.user") || !config.get("db.password")) {
   console.error("FATAl ERROR: need to set db_user and db_password env variables");
   process.exit(1);
 }
