@@ -6,6 +6,10 @@ const express = require("express");
 // create app server
 const app = express();
 // const morgan = require("morgan");
+console.log("S3: ", config.get("s3.accessKeyId"));
+console.log("S3: ", config.get("s3.secretAccessKey"));
+console.log("S3: ", config.get("s3.Bucket"));
+
 // check s3 key is set to ENV or not
 if( !config.get("s3.accessKeyId") ||
     !config.get("s3.secretAccessKey") ||
