@@ -1,11 +1,13 @@
-require("express-async-errors"); // just need to load for catch all unhandle promise rejection happen inside express piplines
+/* Just need to load for catch all unhandle promise rejection 
+    happen inside express pipelines
+*/
+require("express-async-errors");
 const express = require("express");
 
 // Define routes
 const productRoutes = require('../routes/products');
 const orderRoutes = require("../routes/orders");
 const userRoutes = require("../routes/users");
-const testCorsRoutes = require("../routes/testCors");
 const testS3Routes = require("../routes/testS3");
 
 module.exports = function(app) {
@@ -19,7 +21,6 @@ module.exports = function(app) {
   app.use("/api/products", productRoutes);
   app.use("/api/orders", orderRoutes);
   app.use("/api/users", userRoutes);
-  app.use("/api/testCors", testCorsRoutes);
   app.use("/api/testS3", testS3Routes);
 
   // IV. Catch Error in express

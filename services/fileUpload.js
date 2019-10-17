@@ -22,10 +22,10 @@ const upload = multer({
   }),
   
   limits: {
-    fileSize: 1024*1024*5, // ~ 5e6 bytes ~ 5mb
+    fileSize: 1024*1024*100, // ~ 5e6 bytes ~ 5mb
   },
   fileFilter: (req, file, cb) => {
-    if(["image/jpeg", "image/png"].includes(file.mimetype) ) {
+    if(["image/jpeg", "image/png", "video/x-m4v", "video/mp4"].includes(file.mimetype) ) {
       cb(null, true);
     }else{
       cb(new Error("Support only .jpeg and .png file extensions"), false);

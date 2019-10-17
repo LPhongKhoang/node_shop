@@ -39,4 +39,5 @@ I. Parsing the body & Handling Cors
         etag: '"79732fc131f81f482dcf5890d852892d"',
         versionId: undefined
       }
+    + mimetype: image/jpeg, image/png, video/x-m4v, video/mp4
   

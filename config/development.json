@@ -7,8 +7,8 @@
     "password": "pwvidly1"
   },
   "s3": {
-    "accessKeyId": "",
-    "secretAccessKey": "",
+    "accessKeyId": "AKIAXYWCNPRJ4JNFVNMN",
+    "secretAccessKey": "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",
     "Bucket": "node-rest-shop-image"
   }
 }

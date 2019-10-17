@@ -25,9 +25,9 @@ userSchema.methods.generateAuthToken = function() {
   return jwt.sign(
     { _id: this._id, email: this.email, isAdmin: this.isAdmin },
     config.get("jwtSecretKey"),
-    {
-      expiresIn: "1h"
-    }
+    // {
+    //   expiresIn: "1h"
+    // }
   );
 };
 
