@@ -2,13 +2,12 @@
   "jwtSecretKey": "ns_jwtSK_pkpro",
   "db": {
     "name": "node_shop",
-    "constr": "mongodb+srv://<username>:<password>@cluster0-iapls.mongodb.net/<db_name>?retryWrites=true&w=majority",
-    "user": "longpk_vidly_u1",
-    "password": "pwvidly1"
+    "constr": "mongodb://locahost/node_shop"
   },
   "s3": {
-    "accessKeyId": "AKIAXYWCNPRJ4JNFVNMN",
-    "secretAccessKey": "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",
-    "Bucket": "node-rest-shop-image"
+    "accessKeyId": "",
+    "secretAccessKey": "",
+    "Bucket": ""
   }
+  
 }

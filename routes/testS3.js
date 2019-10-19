@@ -23,11 +23,11 @@ router.get("/image",[auth, admin], async (req, res) => {
 
 router.get("/image/:key", async (req, res) => {
   const Key = req.params.key;
-  const data = await s3.getObject({
+  const data = await s3.getSignedUrlPromise('getObject', {
     Bucket: config.get("s3.Bucket"),
-    Key//: "1571311733516_twitter.png"
-  }).promise();
-  res.send(data.Body);
+    Key,//: "1571311733516_twitter.png"
+  });
+  res.send({publicUrl: data});
 });
 
 

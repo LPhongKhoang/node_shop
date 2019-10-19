@@ -3,11 +3,13 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const config = require("config");
 
-const s3 = new aws.S3({
+aws.config.update({
   accessKeyId: config.get("s3.accessKeyId"),
   secretAccessKey: config.get("s3.secretAccessKey"),
-  Bucket: config.get("s3.Bucket")
+  signatureVersion:"v4",
+  region: "ap-southeast-1"
 });
+const s3 = new aws.S3(); 
 const upload = multer({
   storage: multerS3({
     s3,
