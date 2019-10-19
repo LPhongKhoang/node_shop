@@ -21,8 +21,8 @@ module.exports = function() {
     process.exit(1);
   }
   
-  // connect to mongodb
-  if(!config.get("db.user") || !config.get("db.password")) {
+  // check config for connecting to MongoDb
+  if(process.env.NODE_ENV==="production" && (!config.get("db.user") || !config.get("db.password"))) {
     console.error("FATAl ERROR: need to set db_user and db_password env variables");
     process.exit(1);
   }
