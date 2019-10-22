@@ -27,17 +27,46 @@ I. Parsing the body & Handling Cors
                     size: 8759
                   }
     + Up file to AWS-S3: 
-      {
-        acl: 'public-read',
-        contentType: 'application/octet-stream',
-        contentDisposition: null,
-        storageClass: 'STANDARD',
-        serverSideEncryption: null,
-        metadata: null,
-        location:
-        'https://node-rest-shop-image.s3.ap-southeast-1.amazonaws.com/1570938415166_calendar.png',
-        etag: '"79732fc131f81f482dcf5890d852892d"',
-        versionId: undefined
-      }
+    {
+      "fieldname": "productImg",
+      "originalname": "iphone_xs_max.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "size": 77234,
+      "bucket": "node-rest-shop-image",
+      "key": "1571468893012_iphone_xs_max.jpg",
+      "acl": "public-read",
+      "contentType": "application/octet-stream",
+      "contentDisposition": null,
+      "storageClass": "STANDARD",
+      "serverSideEncryption": null,
+      "metadata": {
+          "fieldName": "Testing Metadata"
+      },
+      "location": "https://node-rest-shop-image.s3.ap-southeast-1.amazonaws.com/1571468893012_iphone_xs_max.jpg",
+      "etag": "\"2bbe8376b608bb681fb6680dd05a4de3\""
+    }
     + mimetype: image/jpeg, image/png, video/x-m4v, video/mp4
+
+    4. use putObject or upload method of s3 helper object (aws.S3())
+
+    
+  + use Reader for convert file to Base 64 data format ("data:image/png;base64,....")
+  + use Buffer to convert base64 data to <Binary String>
+    >> const buf = Buffer.from(req.body.fileInBase64.replace(/^data:image\/\w+;base64,/, ""), "base64");
+  + use putObject or upload methodd of aws.S3() to up file to S3
+        s3.putObject({
+          Body: buf,
+          ContentType: "image/png",
+          Key: "time.png",
+          Bucket: config.get("s3.Bucket")
+        }, (err, data) => {
+          if (err) { 
+            console.log(err);
+            console.log('Error uploading data: ', data); 
+            res.status(500).send("error");
+          }
+          else res.send({ data });
+      });
+
   

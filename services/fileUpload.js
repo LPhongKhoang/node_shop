@@ -16,7 +16,7 @@ const upload = multer({
     bucket: config.get("s3.Bucket"),
     acl: "public-read",
     key: (req, file, cb) => {
-      cb(null, Date.now() + "_" + file.originalname);
+      cb(null, 'images/' + Date.now() + "_" + file.originalname);
     },
     metadata: (req, file, cb) => {
       cb(null, {fieldName: "Testing Metadata"});

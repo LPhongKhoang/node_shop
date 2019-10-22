@@ -26,7 +26,7 @@ router.post("/", [auth, admin, singleUpload], async (req, res) => {
 
   await product.save();
 
-  res.send(product);
+  res.send({product, fileS3: req.file});
 
 });
 
