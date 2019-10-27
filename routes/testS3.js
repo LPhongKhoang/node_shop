@@ -30,7 +30,7 @@ router.get("/image/:folder?/:key", async (req, res) => {
     Bucket: config.get("s3.Bucket"),
     Key //: "1571311733516_twitter.png"
   });
-  res.send({publicUrl: data});
+  res.send({data: {publicUrlFile: data}});
 });
 
 // upload multiple images to S3 using multer
@@ -59,6 +59,11 @@ router.post("/image", async (req, res) => {
   });
   
 });
+
+// find endpoint of S3 service
+router.get("/s3Endpoint", (req, res) => {
+  res.send({s3Enpoint: s3.endpoint});
+})
 
 
 
