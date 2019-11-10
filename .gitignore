@@ -3,5 +3,5 @@ coverage/
 config/
 *.jpg
 *.png
-
 .vscode
+readme.txt
