@@ -1,11 +1,10 @@
 const express = require("express"),
-      aws = require("aws-sdk"),
       config = require("config");
 
 
 const auth = require("../middlewares/auth"),
       admin = require("../middlewares/admin"),
-      { s3, upload } = require("../services/fileUpload");
+      { endpoint, upload, getList, getPublicUrl, putFileToS3, getDownloadPublicUrl } = require("../services/fileUpload");
 
 const router = express();
 
@@ -15,10 +14,7 @@ const uploadMulti = upload.array("imageFiles", 4);
 // get All images from S3
 router.get("/image",[auth, admin], async (req, res) => {
   
-  const data = await s3.listObjectsV2({
-    Bucket: config.get("s3.Bucket")
-  })
-  .promise();
+  const data = await getList();
   res.send(data);
   
 });
@@ -26,10 +22,14 @@ router.get("/image",[auth, admin], async (req, res) => {
 router.get("/image/:folder?/:key", async (req, res) => {
   const folder = req.params.folder;
   const Key = (folder? folder+"/" : "") + req.params.key;
-  const data = await s3.getSignedUrlPromise('getObject', {
-    Bucket: config.get("s3.Bucket"),
-    Key //: "1571311733516_twitter.png"
-  });
+  const data = await getPublicUrl(Key);
+  res.send({data: {publicUrlFile: data}});
+});
+
+router.get("/image/linkdownload/:folder?/:key", async (req, res) => {
+  const folder = req.params.folder;
+  const Key = (folder? folder+"/" : "") + req.params.key;
+  const data = await getDownloadPublicUrl(Key);
   res.send({data: {publicUrlFile: data}});
 });
 
@@ -44,25 +44,16 @@ router.post("/image", async (req, res) => {
   // new Buffer() is deprecated. Use Buffer.from, Buffer.alloc or Buffer.allocUnsafe instead.
   // const buf = new Buffer(req.body.fileInBase64.replace(/^data:image\/\w+;base64,/, ""), "base64");
   const buf = Buffer.from(req.body.fileInBase64.replace(/^data:image\/\w+;base64,/, ""), "base64");
-  s3.putObject({
-    Body: buf,
-    ContentType: "image/png",
-    Key: "time.png",
-    Bucket: config.get("s3.Bucket")
-  }, (err, data) => {
-    if (err) { 
-      console.log(err);
-      console.log('Error uploading data: ', data); 
-      res.status(500).send("error");
-    }
-    else res.send({ data });
-  });
+  console.log(buf.byteLength);
+
+  const data = await putFileToS3(buf);
+  res.send(data);
   
 });
 
 // find endpoint of S3 service
 router.get("/s3Endpoint", (req, res) => {
-  res.send({s3Enpoint: s3.endpoint});
+  res.send({s3Enpoint: endpoint });
 })
 
 

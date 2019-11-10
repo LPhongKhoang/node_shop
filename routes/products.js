@@ -1,10 +1,10 @@
 const express = require('express');
-
 const auth = require("../middlewares/auth");
 const admin = require("../middlewares/admin");
 const { Product, validate } = require('../models/product');
 const validateObjectId = require("../middlewares/validateObjectId");
 const validateReqBody = require("../utils/validateReqBody");
+// const validateRequest = require("../middlewares/validateRequest");
 const { upload } = require("../services/fileUpload");
 
 const router = express.Router();
@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
 
 // Note: should add validateReqBody as middleware (before save image to our Storage) (Not done yet)
 router.post("/", [auth, admin, singleUpload], async (req, res) => {
+  console.log(req.body);
   validateReqBody(validate, req.body);
   const product = new Product({
     name: req.body.name,

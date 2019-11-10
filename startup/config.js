@@ -3,9 +3,9 @@ const config = require('config');
 module.exports = function() {
 
   // check s3 key is set to ENV or not
-  if( !config.get("s3.accessKeyId") ||
-      !config.get("s3.secretAccessKey") ||
-      !config.get("s3.Bucket")
+  if( !config.get("aws.accessKeyId") ||
+      !config.get("aws.secretAccessKey") ||
+      !config.get("aws.s3.Bucket")
   ) {
     console.error(`FATAl ERROR: need to set 
     node_shop_s3_accessKeyId 

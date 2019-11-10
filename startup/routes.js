@@ -9,6 +9,7 @@ const productRoutes = require('../routes/products');
 const orderRoutes = require("../routes/orders");
 const userRoutes = require("../routes/users");
 const testS3Routes = require("../routes/testS3");
+const testSNSRoutes = require("../routes/testSNS");
 
 module.exports = function(app) {
   // II. ========== Use middleware for pre-processing data, works =============
@@ -22,6 +23,7 @@ module.exports = function(app) {
   app.use("/api/orders", orderRoutes);
   app.use("/api/users", userRoutes);
   app.use("/api/testS3", testS3Routes);
+  app.use("/api/testSNS", testSNSRoutes);
 
   // IV. Catch Error in express
   //1. catch unhandle route
@@ -33,9 +35,10 @@ module.exports = function(app) {
 
   //2. catch all error happens in express route pipelines
   app.use((err, req, res, next) => {
-    res.status(err.status || 500);
+    res.status(err.status || err.statusCode || 500);
     res.send({
       error: {
+        details: err,
         message: err.message
       }
     })

@@ -1,19 +1,12 @@
-const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const config = require("config");
+const { s3 } = require("./aws");
 
-aws.config.update({
-  accessKeyId: config.get("s3.accessKeyId"),
-  secretAccessKey: config.get("s3.secretAccessKey"),
-  signatureVersion:"v4",
-  region: "ap-southeast-1"
-});
-const s3 = new aws.S3(); 
 const upload = multer({
   storage: multerS3({
     s3,
-    bucket: config.get("s3.Bucket"),
+    bucket: config.get("aws.s3.Bucket"),
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: "public-read",
     key: (req, file, cb) => {
@@ -36,7 +29,47 @@ const upload = multer({
   }
 });
 
+const endpoint = s3.endpoint;
+
+const getList = async () => {
+  return data = await s3.listObjectsV2({
+    Bucket: config.get("aws.s3.Bucket")
+  })
+  .promise();
+}
+
+const getPublicUrl = async (Key) => {
+  return await s3.getSignedUrlPromise('getObject', {
+    Bucket: config.get("aws.s3.Bucket"),
+    Key //: "1571311733516_twitter.png"
+  });
+}
+
+const getDownloadPublicUrl = async (Key) => {
+  return await s3.getSignedUrlPromise('getObject', {
+    Bucket: config.get("aws.s3.Bucket"),
+    Key, //: "1571311733516_twitter.png",
+   
+    "ResponseContentDisposition": "attachment"
+  });
+}
+
+
+const putFileToS3 = async (buf) => {
+  return await s3.putObject({
+    Body: buf,
+    ContentType: "image/png",
+    Key: "time.png",
+    Bucket: config.get("aws.s3.Bucket")
+  }).promise();
+}
+
+
 module.exports = {
+  endpoint,
   upload,
-  s3
+  getList,
+  getPublicUrl,
+  getDownloadPublicUrl,
+  putFileToS3,
 }
