@@ -7,7 +7,7 @@
     "start": "node index.js",
     "wrap": "claudia generate-serverless-express-proxy --express-module app",
     "deploy": "claudia create --handler lambda.handler --deploy-proxy-api --region ap-southeast-1 --set-env-from-json ./env.json",
-    "update": "claudia update", 
+    "update": "claudia update",
     "test": "jest"
   },
   "author": "phong khoang",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@hapi/joi": "^16.0.1",
     "aws-sdk": "^2.548.0",
+    "aws-serverless-express": "^3.3.6",
     "axios": "^0.19.0",
     "config": "^3.2.2",
     "cors": "^2.8.5",
