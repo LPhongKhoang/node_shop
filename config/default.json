@@ -1,0 +1,6 @@
+{
+  "db": {
+    "name": "node_shop_default",
+    "constr": "mongodb://localhost/node_shop"
+  }
+}

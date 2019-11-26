@@ -1,7 +1,7 @@
 node_modules/
 coverage/
-config/
 *.jpg
 *.png
 .vscode
 readme.txt
+.serverless

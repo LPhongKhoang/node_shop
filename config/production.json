@@ -1,0 +1,19 @@
+{
+  "jwtSecretKey": "",
+  "db": {
+    "name": "node_shop",
+    "constr": ""
+  },
+  "aws": {
+    "accessKeyId": "",
+    "secretAccessKey": "",
+
+    "s3": {
+      "Bucket": ""
+    },
+    "sns": {
+      "topicArn": ""
+    }
+  }
+
+}

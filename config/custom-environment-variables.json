@@ -2,11 +2,13 @@
   "jwtSecretKey": "node_shop_jwtSecretKey",
   "db": {
     "name": "node_shop",
-    "constr": "node_shop_DB_URI"
+    "constr": "node_shop_DB_URI",
+    "user": "db_user",
+    "password": "db_password"
   },
   "aws": {
-    "accessKeyId": "AWS_ACCESS_KEY",
-    "secretAccessKey": "AWS_SECRET_KEY",
+    "accessKeyId": "AWS_KEY",
+    "secretAccessKey": "AWS_SECRET",
 
     "s3": {
       "Bucket": "S3_BUCKET"

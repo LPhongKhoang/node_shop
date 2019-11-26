@@ -1,0 +1,36 @@
+service: longpk-node-shop
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: ap-southeast-1
+  memorySize: 1024
+  timeout: 10
+functions:
+  app:
+    handler: index.handler
+    environment:
+      NODE_ENV: production
+      node_shop_jwtSecretKey: longpk32@123
+      node_shop: node_shop
+      node_shop_DB_URI: mongodb+srv://<username>:<password>@cluster0-iapls.mongodb.net/<db_name>?retryWrites=true&w=majority
+      db_user: longpk_vidly_u1
+      db_password: pwvidly1
+      AWS_KEY: AKIA3GMQNL5DJAAVQTN2
+      AWS_SECRET: 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
+      S3_BUCKET: longvv1-test-upload
+      SNS_TOPIC_ARN: arn:aws:sns:ap-southeast-1:769638883142:Krisshop
+    package:
+      exclude:
+        - readme.txt
+        - config/default.json
+        - config/development.json
+    events: 
+      - http: 
+          path: /
+          method: ANY
+          cors: true
+      - http: 
+          path: /{proxy+}
+          method: ANY
+          cors: true

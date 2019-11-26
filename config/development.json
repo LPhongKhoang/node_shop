@@ -1,0 +1,19 @@
+{
+  "jwtSecretKey": "ns_jwtSK_pkpro",
+  "db": {
+    "name": "node_shop",
+    "constr": "mongodb://localhost/node_shop"
+  },
+  "aws": {
+    "accessKeyId": "AKIA3GMQNL5DJAAVQTN2",
+    "secretAccessKey": "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",
+
+    "s3": {
+      "Bucket": "longvv1-test-upload"
+    },
+    "sns": {
+      "topicArn": "arn:aws:sns:ap-southeast-1:769638883142:Krisshop"
+    }
+  }
+
+}
