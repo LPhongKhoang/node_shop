@@ -7,7 +7,7 @@ const express = require("express");
 // Define routes
 const productRoutes = require('../routes/products');
 const orderRoutes = require("../routes/orders");
-const userRoutes = require("../routes/users");
+// const userRoutes = require("../routes/users");
 const testS3Routes = require("../routes/testS3");
 const testSNSRoutes = require("../routes/testSNS");
 
@@ -21,7 +21,7 @@ module.exports = function(app) {
   //III. Specific Route Handler
   app.use("/api/products", productRoutes);
   app.use("/api/orders", orderRoutes);
-  app.use("/api/users", userRoutes);
+  // app.use("/api/users", userRoutes);
   app.use("/api/testS3", testS3Routes);
   app.use("/api/testSNS", testSNSRoutes);
 
